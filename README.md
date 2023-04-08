@@ -1,4 +1,4 @@
-# An Example of a kafka streaming application based on the spring cloud framework and Kotlin
+# An example of a kafka streaming application based on the spring cloud framework and Kotlin
 
 This example of the kafka streaming application has been created for the course "Data Streaming Processing" that is read at Ukrainian Catholic University. It implements a very simple topology of word count in Kotlin
 The example is based on the spring cloud framework (the kafka stream binding) and Redpanda.
