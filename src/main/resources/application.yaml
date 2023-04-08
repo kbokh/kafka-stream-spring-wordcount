@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    function:
+      definition: wordCountProcessor;lowerCaseProcessor
+    stream:
+      # Configure bindings
+      bindings:
+        wordCountProcessor-in-0:
+          destination: ${WORDCOUNT_TOPIC:wordcount-topic}
+        lowerCaseProcessor-in-0:
+          destination: lowercasetopic
+      # Kafka config
+      kafka:
+        streams:
+          binder:
+            brokers: ${BOOTSTRAP_SERVERS:localhost:29092}
+          bindings:
+            wordCountProcessor-in-0.consumer.valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+            wordCountProcessor-in-0.consumer.keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
