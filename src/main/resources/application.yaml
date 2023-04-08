@@ -1,14 +1,12 @@
 spring:
   cloud:
     function:
-      definition: wordCountProcessor;lowerCaseProcessor
+      definition: wordCountProcessor
     stream:
       # Configure bindings
       bindings:
         wordCountProcessor-in-0:
           destination: ${WORDCOUNT_TOPIC:wordcount-topic}
-        lowerCaseProcessor-in-0:
-          destination: lowercasetopic
       # Kafka config
       kafka:
         streams:

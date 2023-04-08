@@ -9,25 +9,17 @@ import org.apache.kafka.streams.kstream.*
 @SpringBootApplication
 class SpringWordCountApplication {
 	@Bean
-	fun lowerCaseProcessor():
-			java.util.function.Consumer<KStream<String, String>> {
-		return java.util.function.Consumer<KStream<String, String>>
-		{ input ->
-			input
-				.mapValues { _, value -> value.lowercase() }
-				.to("lowercasetopic")
-		}
-	}
-
 	fun wordCountProcessor():
 			java.util.function.Consumer<KStream<String, String>> {
 		return java.util.function.Consumer<KStream<String, String>>
 		{ input ->
 			input
+				.mapValues { _, value -> value.lowercase() }
+				.peek { key, value -> println("mapValues result: ${key}:${value}") }
 				.flatMapValues { value -> value.split(" ") }
-				.peek { key, value -> println("flatMapValues WC result: ${key}:${value}") }
+				.peek { key, value -> println("flatMapValues result: ${key}:${value}") }
 				.selectKey { _, value -> value }
-				.peek { key, value -> println("selectKey WC result: ${key}:${value}") }
+				.peek { key, value -> println("selectKey result: ${key}:${value}") }
 				.groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
 				.count()
 				.toStream()
